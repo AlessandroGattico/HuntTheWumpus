@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+
 /**
  * Class that represents the view of the game map.
  *
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class MapView extends JPanel {
     protected JLabel[][] mapContent;
     protected int dimension;
+
 
     /**
      * Creates the view and sets all its cells black.
@@ -42,6 +44,7 @@ public class MapView extends JPanel {
 
         this.setVisible(true);
     }
+
 
     /**
      * Updates the view with the new player's room and sets the steps icon in the old one.
@@ -122,6 +125,7 @@ public class MapView extends JPanel {
             }
         }
     }
+
 
     /**
      * Resets the view.

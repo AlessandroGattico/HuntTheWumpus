@@ -58,7 +58,7 @@ public abstract class Character {
      * Moves the character.
      *
      * @param direction direction where the character has to move.
-     * @param random if true the character <strong>must move</strong> in the map.
+     * @param random    if true the character <strong>must move</strong> in the map.
      */
     public abstract void move(Directions direction, boolean random);
 
@@ -67,7 +67,7 @@ public abstract class Character {
      *
      * @return int that represents the lost or gained item.
      */
-     public abstract int react();
+    public abstract int react();
 
     /**
      * Describes the behavior when killed. It leaves, randomly, arrows or gold in the room and stops playing.

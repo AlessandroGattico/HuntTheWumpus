@@ -13,10 +13,10 @@ import java.beans.PropertyChangeSupport;
  */
 public class Player extends Character {
     private static final Directions DEFAULTFACING = Directions.EAST;
+    private final PropertyChangeSupport support;
     protected Backpack backpack;
     private Directions facing;
     private int moves;
-    private PropertyChangeSupport support;
 
 
     /**
@@ -30,15 +30,17 @@ public class Player extends Character {
         this.support = new PropertyChangeSupport(this);
     }
 
+
     @Override
     public int react() {
         return 0;
     }
 
+
     @Override
     public void killed() {
-
     }
+
 
     /**
      * Adds the listener to the PropertyChangeSupport.
@@ -49,6 +51,7 @@ public class Player extends Character {
         this.support.addPropertyChangeListener(listener);
     }
 
+
     /**
      * Returns the player's facing direction.
      *
@@ -58,12 +61,14 @@ public class Player extends Character {
         return this.facing;
     }
 
+
     /**
      * Resets the facing direction to the default value(EAST).
      */
     public void resetFacing() {
         this.facing = DEFAULTFACING;
     }
+
 
     /**
      * Returns the player's backpack.
@@ -74,6 +79,7 @@ public class Player extends Character {
         return this.backpack;
     }
 
+
     /**
      * Returns the number of moves that the player has made.
      *
@@ -83,12 +89,14 @@ public class Player extends Character {
         return this.moves;
     }
 
+
     /**
      * Resets the player's moves to 0.
      */
     public void resetMoves() {
         this.moves = 0;
     }
+
 
     /**
      * Turns the player in the direction passed as argument.
@@ -138,12 +146,11 @@ public class Player extends Character {
         this.support.firePropertyChange("turn", oldDirection, this.facing);
     }
 
+
     @Override
     public void move(Directions direction, boolean random) {
         Room oldRoom;
         oldRoom = this.room;
-
-        this.moves++;
 
         switch (direction) {
             case MOVEFORWARD:
@@ -318,6 +325,7 @@ public class Player extends Character {
                 break;
         }
 
+        this.moves++;
         this.support.firePropertyChange("move", oldRoom, this.room);
     }
 
@@ -366,6 +374,7 @@ public class Player extends Character {
         }
     }
 
+
     /**
      * Changes the player's room with its neighbour passed as argument.
      *
@@ -376,6 +385,7 @@ public class Player extends Character {
         this.room = room;
         this.room.addItem(Items.PLAYER);
     }
+
 
     /**
      * Class that represents the player's backpack.
@@ -389,6 +399,7 @@ public class Player extends Character {
         private int gold;
         private int arrows;
 
+
         /**
          * Sets the items to the default values (4 arrows, 0 gold).
          */
@@ -396,6 +407,7 @@ public class Player extends Character {
             this.arrows = DEFAULTARROWS;
             this.gold = DEFAULTGOLD;
         }
+
 
         /**
          * Sets player's arrows and gold.
@@ -408,13 +420,6 @@ public class Player extends Character {
             this.setGold(gold);
         }
 
-        private void setArrows(int arrows) {
-            this.arrows = arrows;
-        }
-
-        private void setGold(int gold){
-            this.gold = gold;
-        }
 
         /**
          * Returns the player's arrows.
@@ -425,6 +430,17 @@ public class Player extends Character {
             return this.arrows;
         }
 
+
+        /**
+         * Sets the player's arrows.
+         *
+         * @param arrows player's arrows.
+         */
+        private void setArrows(int arrows) {
+            this.arrows = arrows;
+        }
+
+
         /**
          * Returns the player's gold.
          *
@@ -433,6 +449,17 @@ public class Player extends Character {
         public int getGold() {
             return this.gold;
         }
+
+
+        /**
+         * Sets the player's arrows.
+         *
+         * @param gold player's gold.
+         */
+        private void setGold(int gold) {
+            this.gold = gold;
+        }
+
 
         /**
          * Increases or decreases player's arrows.
@@ -447,6 +474,7 @@ public class Player extends Character {
             }
         }
 
+
         /**
          * Increases or decreases player's gold.
          *
@@ -459,6 +487,7 @@ public class Player extends Character {
                 this.gold = 0;
             }
         }
+
 
         /**
          * Resets the items at the default values.

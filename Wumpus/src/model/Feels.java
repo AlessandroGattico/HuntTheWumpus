@@ -1,5 +1,6 @@
 package model;
 
+
 /**
  * Enumeration that identifies the player's feels.
  *

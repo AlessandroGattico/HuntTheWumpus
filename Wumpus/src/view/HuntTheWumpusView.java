@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+
 /**
  * Class that represents the game's view.
  *
@@ -19,11 +20,11 @@ import java.awt.event.FocusListener;
  * @see World
  */
 public class HuntTheWumpusView extends JFrame {
+    private final World world;
     private MapView mapView;
     private SolutionView solutionView;
     private ControlView controlView;
-    private ImageIcon icon;
-    private World world;
+
 
     /**
      * Creates the elements of the view.
@@ -38,7 +39,6 @@ public class HuntTheWumpusView extends JFrame {
         this.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-
             }
 
             @Override
@@ -48,6 +48,7 @@ public class HuntTheWumpusView extends JFrame {
         });
         this.setVisible(true);
     }
+
 
     /**
      * Sets in place the components of the view.
@@ -85,6 +86,7 @@ public class HuntTheWumpusView extends JFrame {
         this.add(this.controlView, gridBag);
     }
 
+
     /**
      * Returns the control view.
      *
@@ -94,6 +96,7 @@ public class HuntTheWumpusView extends JFrame {
         return this.controlView;
     }
 
+
     /**
      * Returns the solution view.
      *
@@ -102,6 +105,7 @@ public class HuntTheWumpusView extends JFrame {
     public SolutionView getSolutionView() {
         return this.solutionView;
     }
+
 
     /**
      * Updates the views after the player's move.
@@ -114,6 +118,7 @@ public class HuntTheWumpusView extends JFrame {
         this.controlView.updateView(this.world);
     }
 
+
     /**
      * Updates the views.
      */
@@ -122,6 +127,7 @@ public class HuntTheWumpusView extends JFrame {
         this.solutionView.updateView(this.world);
         this.controlView.updateView(this.world);
     }
+
 
     /**
      * Resets the views.

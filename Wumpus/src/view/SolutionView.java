@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+
 /**
  * Class that represents the solution view with all the icons displayed.
  *
@@ -14,6 +15,7 @@ import java.util.Objects;
  * @see World
  */
 public class SolutionView extends MapView {
+
 
     /**
      * Call to the parent constructor and sets its visibility to false.
@@ -26,13 +28,14 @@ public class SolutionView extends MapView {
         this.setVisible(false);
     }
 
+
     /**
      * Displays the icons on the map.
      *
      * @param world to get the icons' positions from.
      */
     private void showIcons(World world) {
-        if (world.isGameOn()){
+        if (world.isGameOn()) {
             for (int i = 0; i < this.dimension; i++) {
                 for (int j = 0; j < this.dimension; j++) {
                     this.mapContent[i][j].setBackground(Color.WHITE);
@@ -76,22 +79,26 @@ public class SolutionView extends MapView {
                             case NORTH:
                                 this.mapContent[i][j]
                                         .setIcon(new ImageIcon(
-                                                Objects.requireNonNull(getClass().getResource("/icons/playerNorth.png"))));
+                                                Objects.requireNonNull(
+                                                        getClass().getResource("/icons/playerNorth.png"))));
                                 break;
                             case EAST:
                                 this.mapContent[i][j]
                                         .setIcon(new ImageIcon(
-                                                Objects.requireNonNull(getClass().getResource("/icons/playerEast.png"))));
+                                                Objects.requireNonNull(
+                                                        getClass().getResource("/icons/playerEast.png"))));
                                 break;
                             case SOUTH:
                                 this.mapContent[i][j]
                                         .setIcon(new ImageIcon(
-                                                Objects.requireNonNull(getClass().getResource("/icons/playerSouth.png"))));
+                                                Objects.requireNonNull(
+                                                        getClass().getResource("/icons/playerSouth.png"))));
                                 break;
                             case WEST:
                                 this.mapContent[i][j]
                                         .setIcon(new ImageIcon(
-                                                Objects.requireNonNull(getClass().getResource("/icons/playerWest.png"))));
+                                                Objects.requireNonNull(
+                                                        getClass().getResource("/icons/playerWest.png"))));
                                 break;
                         }
                     }
@@ -99,6 +106,7 @@ public class SolutionView extends MapView {
             }
         }
     }
+
 
     /**
      * Updates the view with the new positions of the icons.
@@ -108,6 +116,7 @@ public class SolutionView extends MapView {
     public void updateView(World world) {
         this.showIcons(world);
     }
+
 
     /**
      * Resets the view.

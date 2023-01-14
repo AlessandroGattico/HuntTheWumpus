@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashSet;
 
+
 /**
  * Class that represents each world's room.
  *
@@ -19,6 +20,7 @@ public class Room {
     private boolean player;
     private Room[] neighbours;
 
+
     /**
      * Sets up the room setting it empty and with no feels in it.
      *
@@ -35,6 +37,7 @@ public class Room {
         this.player = false;
     }
 
+
     /**
      * Resets the room with the default values.
      */
@@ -46,14 +49,6 @@ public class Room {
         this.clearFeels();
     }
 
-    /**
-     * Sets the room's neighbours.
-     *
-     * @param neighbours array of room that contains the room's neighbours.
-     */
-    public void setNeighbours(Room[] neighbours) {
-        this.neighbours = neighbours;
-    }
 
     /**
      * Returns an array of rooms that represents the room's neighbours.
@@ -64,14 +59,16 @@ public class Room {
         return this.neighbours;
     }
 
+
     /**
-     * Sets the room's gold.
+     * Sets the room's neighbours.
      *
-     * @param gold new room's gold.
+     * @param neighbours array of room that contains the room's neighbours.
      */
-    public void setGold(int gold) {
-        this.gold += gold;
+    public void setNeighbours(Room[] neighbours) {
+        this.neighbours = neighbours;
     }
+
 
     /**
      * Returns the room's gold.
@@ -82,14 +79,16 @@ public class Room {
         return this.gold;
     }
 
+
     /**
-     * Sets the room's arrows.
+     * Sets the room's gold.
      *
-     * @param arrows new room's arrows
+     * @param gold new room's gold.
      */
-    public void setArrows(int arrows) {
-        this.arrows += arrows;
+    public void setGold(int gold) {
+        this.gold += gold;
     }
+
 
     /**
      * Returns the room's arrows.
@@ -99,6 +98,17 @@ public class Room {
     public int getArrows() {
         return this.arrows;
     }
+
+
+    /**
+     * Sets the room's arrows.
+     *
+     * @param arrows new room's arrows
+     */
+    public void setArrows(int arrows) {
+        this.arrows += arrows;
+    }
+
 
     /**
      * If the item passed as argument is PLAYER sets the playerIn indicator to true, otherwise sets the room's item
@@ -115,6 +125,7 @@ public class Room {
         }
     }
 
+
     /**
      * If the item passed as argument is PLAYER sets the playerIn indicator to false, otherwise removes the items in
      * the room and sets it empty.
@@ -130,6 +141,7 @@ public class Room {
         }
     }
 
+
     /**
      * Returns the playerIn indicator.
      *
@@ -139,6 +151,7 @@ public class Room {
         return this.player;
     }
 
+
     /**
      * Returns the item in the room.
      *
@@ -147,6 +160,7 @@ public class Room {
     public Items getItems() {
         return this.item;
     }
+
 
     /**
      * Adds the feel passed as argument to the room's feels.
@@ -158,6 +172,7 @@ public class Room {
         this.feels.add(feel);
     }
 
+
     /**
      * Removes the feel passed as argument to the room's feels.
      *
@@ -168,6 +183,7 @@ public class Room {
         this.feels.remove(feel);
     }
 
+
     /**
      * Returns the room's feels.
      *
@@ -177,12 +193,14 @@ public class Room {
         return this.feels;
     }
 
+
     /**
      * Removes all the feels in the room.
      */
     private void clearFeels() {
         this.feels.clear();
     }
+
 
     /**
      * Returns the room's X coordinate.
@@ -192,6 +210,7 @@ public class Room {
     public int getX() {
         return this.x;
     }
+
 
     /**
      * Returns the room's Y coordinate.

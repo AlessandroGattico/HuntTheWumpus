@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+
 /**
  * Class that represents the control view of the game.
  *
@@ -18,7 +19,6 @@ import java.beans.PropertyChangeSupport;
  * @see ActionListener
  * @see PropertyChangeSupport
  */
-
 public class ControlView extends JPanel {
     private static final int DEFAULTTIME = 11;
     private final MyButton playButton;
@@ -29,10 +29,10 @@ public class ControlView extends JPanel {
     private final MyTextArea backpack;
     private final MyTextArea moves;
     public MyTextArea commands;
-    private Timer countdown;
+    private final Timer countdown;
     private int elapsedTime;
     private int seconds;
-    private PropertyChangeSupport support;
+    private final PropertyChangeSupport support;
 
 
     /**
@@ -58,7 +58,7 @@ public class ControlView extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 elapsedTime = elapsedTime - 1000;
-                seconds = --seconds;
+                --seconds;
                 timer.setText(String.valueOf(seconds));
                 if (seconds == 0) {
                     countdown.stop();
@@ -72,6 +72,7 @@ public class ControlView extends JPanel {
         this.setVisible(true);
     }
 
+
     /**
      * Adds the listener to the PropertyChangeSupport.
      *
@@ -80,6 +81,7 @@ public class ControlView extends JPanel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.support.addPropertyChangeListener(listener);
     }
+
 
     /**
      * Sets in place the components of the view.
@@ -127,6 +129,7 @@ public class ControlView extends JPanel {
         this.add(this.commands, gridBag);
     }
 
+
     /**
      * Starts or restarts the timer.
      */
@@ -134,12 +137,14 @@ public class ControlView extends JPanel {
         this.countdown.start();
     }
 
+
     /**
      * Stops the timer.
      */
     public void timerStop() {
         this.countdown.stop();
     }
+
 
     /**
      * Resets the timer ath the default seconds (10).
@@ -150,6 +155,7 @@ public class ControlView extends JPanel {
         this.seconds = DEFAULTTIME;
     }
 
+
     /**
      * Returns the play button.
      *
@@ -158,6 +164,7 @@ public class ControlView extends JPanel {
     public JButton getPlayButton() {
         return this.playButton;
     }
+
 
     /**
      * Returns the solution view button.
@@ -168,6 +175,7 @@ public class ControlView extends JPanel {
         return this.solutionButton;
     }
 
+
     /**
      * Returns the random move button.
      *
@@ -176,6 +184,7 @@ public class ControlView extends JPanel {
     public JButton getRandomMoveButton() {
         return this.randomMoveButton;
     }
+
 
     /**
      * Updates the view with the new elements.
@@ -211,6 +220,7 @@ public class ControlView extends JPanel {
         }
     }
 
+
     /**
      * Resets the view.
      */
@@ -222,6 +232,7 @@ public class ControlView extends JPanel {
         this.popups.setText("");
     }
 }
+
 
 /**
  * Class that represents a custom text area.
@@ -243,6 +254,7 @@ class MyTextArea extends JTextArea {
         this.setAlignmentY(CENTER_ALIGNMENT);
     }
 }
+
 
 /**
  * Class that represents a custom button.

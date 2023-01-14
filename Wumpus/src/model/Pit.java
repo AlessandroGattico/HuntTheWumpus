@@ -4,19 +4,19 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Class that represents the wumpus.
+ * Class that represents the pit.
  *
- * @author Gatico Alessandro
+ * @author Gattico Alessandro
  * @see Character
  */
-public class Wumpus extends Character {
+public class Pit extends Character {
 
-    private PropertyChangeSupport support;
+    private final PropertyChangeSupport support;
 
     /**
-     * Calls the parent constructor.
+     * Call to the parent constructor.
      */
-    Wumpus() {
+    Pit() {
         super();
         this.support = new PropertyChangeSupport(this);
     }
@@ -32,17 +32,16 @@ public class Wumpus extends Character {
 
     @Override
     public void move(Directions direction, boolean random) {
-
+        /* IT DOESN'T MOVE */
     }
 
     @Override
     public int react() {
-        this.support.firePropertyChange("gameOverWumpus", true, false);
+        this.support.firePropertyChange("gameOverPit", true, false);
         return 0;
     }
 
     @Override
     public void killed() {
-        this.support.firePropertyChange("win", 0, 1);
     }
 }

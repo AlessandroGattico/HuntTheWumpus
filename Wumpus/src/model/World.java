@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
 import java.util.Random;
 
+
 /**
  * Class that represents the wumpus world.
  *
@@ -23,7 +24,6 @@ public class World {
     private Pit[] pits;
     private Survivor[] survivors;
     private int dimension;
-    private Random rand;
     private HashSet<String> messages;
     private boolean gameOn;
 
@@ -42,11 +42,11 @@ public class World {
         this.survivors = new Survivor[Math.round(this.dimension / 2)];
         this.babywumpuses = new BabyWumpus[Math.round(this.dimension / 2)];
         this.messages = new HashSet<>();
-        this.rand = new Random();
         this.gameOn = false;
 
         this.setupWorld();
     }
+
 
     /**
      * Adds the listener to the PropertyChangeSupport.
@@ -60,6 +60,7 @@ public class World {
         this.wumpus.addPropertyChangeListener(listener);
     }
 
+
     /**
      * Returns the world's dimension.
      *
@@ -68,6 +69,7 @@ public class World {
     public int getDimension() {
         return this.dimension;
     }
+
 
     /**
      * Returns the game map.
@@ -78,6 +80,7 @@ public class World {
         return this.map;
     }
 
+
     /**
      * Returns the player.
      *
@@ -86,6 +89,7 @@ public class World {
     public Player getPlayer() {
         return this.player;
     }
+
 
     /**
      * Returns the messages sent at the player.
@@ -96,6 +100,7 @@ public class World {
         return this.messages;
     }
 
+
     /**
      * Returns the game status.
      *
@@ -104,6 +109,7 @@ public class World {
     public boolean isGameOn() {
         return this.gameOn;
     }
+
 
     /**
      * Creates each room of the map.
@@ -122,6 +128,7 @@ public class World {
         }
     }
 
+
     /**
      * Starts the game, sets each room's neighbours and sets up each character.
      */
@@ -135,6 +142,7 @@ public class World {
         this.gameOn = true;
     }
 
+
     /**
      * Checks if there's another character in the player's room, moves each playing babywumpus and checks the feels
      * in the neighbours of the player's room.
@@ -145,6 +153,7 @@ public class World {
         this.moveBaby();
         this.checkRoomFeels();
     }
+
 
     /**
      * Resets the game at the default parameters.
@@ -164,6 +173,7 @@ public class World {
         this.player.resetMoves();
         this.messages.clear();
     }
+
 
     /**
      * Removes the characters and their feels from the map.
@@ -188,6 +198,7 @@ public class World {
         }
     }
 
+
     /**
      * Sets up the {@link Player player}.
      */
@@ -196,6 +207,7 @@ public class World {
         this.player.getRoom().addItem(Items.PLAYER);
         this.player.setPlaying(true);
     }
+
 
     /**
      * Sets up the {@link Wumpus wumpus}.
@@ -210,24 +222,25 @@ public class World {
         this.wumpus.setPlaying(true);
     }
 
+
     /**
      * Sets up each {@link Survivor survivor}.
      */
     private void setupSurvivors() {
         int[] random;
 
-        for (int i = 0; i < this.survivors.length; i++) {
-
+        for (Survivor survivor : this.survivors) {
             do {
                 random = getRandomCoordinates(3);
             } while (!this.neighboursEmpty(this.map[random[0]][random[1]]));
 
-            this.survivors[i].setRoom(this.map[random[0]][random[1]]);
-            this.survivors[i].getRoom().addItem(Items.SURVIVOR);
-            this.addNeighbourFeels(this.survivors[i].getRoom(), Feels.HELP);
-            this.survivors[i].setPlaying(true);
+            survivor.setRoom(this.map[random[0]][random[1]]);
+            survivor.getRoom().addItem(Items.SURVIVOR);
+            this.addNeighbourFeels(survivor.getRoom(), Feels.HELP);
+            survivor.setPlaying(true);
         }
     }
+
 
     /**
      * Sets up each {@link BabyWumpus baby wumpus}.
@@ -235,18 +248,18 @@ public class World {
     private void setupBabyWumpuses() {
         int[] random;
 
-        for (int i = 0; i < this.babywumpuses.length; i++) {
-
+        for (BabyWumpus babywumpus : this.babywumpuses) {
             do {
                 random = getRandomCoordinates(3);
             } while (!this.neighboursEmpty(this.map[random[0]][random[1]]));
 
-            this.babywumpuses[i].setRoom(this.map[random[0]][random[1]]);
-            this.babywumpuses[i].getRoom().addItem(Items.BABYWUMPUS);
-            this.addNeighbourFeels(this.babywumpuses[i].getRoom(), Feels.CLOSEBABY);
-            this.babywumpuses[i].setPlaying(true);
+            babywumpus.setRoom(this.map[random[0]][random[1]]);
+            babywumpus.getRoom().addItem(Items.BABYWUMPUS);
+            this.addNeighbourFeels(babywumpus.getRoom(), Feels.CLOSEBABY);
+            babywumpus.setPlaying(true);
         }
     }
+
 
     /**
      * Sets up each {@link Pit pit}.
@@ -254,18 +267,18 @@ public class World {
     private void setupPits() {
         int[] random;
 
-        for (int i = 0; i < this.pits.length; i++) {
-
+        for (Pit pit : this.pits) {
             do {
                 random = getRandomCoordinates(3);
             } while (!this.neighboursEmpty(this.map[random[0]][random[1]]));
 
-            this.pits[i].setRoom(this.map[random[0]][random[1]]);
-            this.pits[i].getRoom().addItem(Items.PIT);
-            this.addNeighbourFeels(this.pits[i].getRoom(), Feels.BREEZE);
-            this.pits[i].setPlaying(true);
+            pit.setRoom(this.map[random[0]][random[1]]);
+            pit.getRoom().addItem(Items.PIT);
+            this.addNeighbourFeels(pit.getRoom(), Feels.BREEZE);
+            pit.setPlaying(true);
         }
     }
+
 
     /**
      * Generates random coordinates: x -> randomC[0], y -> randomC[1].
@@ -274,17 +287,19 @@ public class World {
      * @return array of int that represents the random coordinates.
      */
     private int[] getRandomCoordinates(int away) {
+        Random random = new Random();
         int[] randomC = new int[2];
 
         do {
             do {
-                randomC[0] = this.rand.nextInt(this.dimension);
-                randomC[1] = this.rand.nextInt(this.dimension);
+                randomC[0] = random.nextInt(this.dimension);
+                randomC[1] = random.nextInt(this.dimension);
             } while (this.map[randomC[0]][randomC[1]].getItems() != Items.EMPTY);
         } while (randomC[0] < away && randomC[1] < away);
 
         return randomC;
     }
+
 
     /**
      * Sets each room's neighbours.
@@ -328,6 +343,7 @@ public class World {
         }
     }
 
+
     /**
      * Adds the feel passed as argument to each room's neighbour.
      *
@@ -341,6 +357,7 @@ public class World {
             }
         }
     }
+
 
     /**
      * Removes the feel passed as argument from each room's neighbour.
@@ -373,6 +390,7 @@ public class World {
         }
         return true;
     }
+
 
     /**
      * Checks the item in the room where the player shot.
@@ -419,6 +437,7 @@ public class World {
         }
     }
 
+
     /**
      * Checks the feels of the player's room and adds them to the messages.
      */
@@ -443,18 +462,22 @@ public class World {
         }
     }
 
+
     /**
      * Moves randomly each baby wumpus that is still playing.
      */
     private void moveBaby() {
+        Random random = new Random();
+
         for (BabyWumpus baby : this.babywumpuses) {
             if (baby.isPlaying()) {
                 this.removeNeighboursFeels(baby.getRoom(), Feels.CLOSEBABY);
-                baby.move(Directions.values()[rand.nextInt(4)], false);
+                baby.move(Directions.values()[random.nextInt(4)], false);
                 this.addNeighbourFeels(baby.getRoom(), Feels.CLOSEBABY);
             }
         }
     }
+
 
     /**
      * Checks the items in the player's room.

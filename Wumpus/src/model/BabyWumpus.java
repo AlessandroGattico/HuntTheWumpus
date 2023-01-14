@@ -13,14 +13,12 @@ public class BabyWumpus extends Character {
 
     static final int DEFAULTLOOSEARROWS = -1;
     static final int DEFAULTLOOSEGOLD = -10;
-    private Random random;
 
     /**
      * Call to the parent constructor and creates the random object.
      */
     public BabyWumpus() {
         super();
-        this.random = new Random();
     }
 
     /**
@@ -29,11 +27,9 @@ public class BabyWumpus extends Character {
      * @return int that represents the lost item.
      */
     private int loose() {
-        int r;
+        Random random = new Random();
 
-        r = random.nextInt(10);
-
-        if (r < 8) {
+        if (random.nextInt(10) < 8) {
             return DEFAULTLOOSEARROWS;
         } else {
             return DEFAULTLOOSEGOLD;
@@ -42,12 +38,9 @@ public class BabyWumpus extends Character {
 
     @Override
     public void killed() {
-        int item;
-
-        item = this.loose();
         this.room.deleteItem(Items.BABYWUMPUS);
 
-        if (item == DEFAULTLOOSEARROWS) {
+        if (this.loose() == DEFAULTLOOSEARROWS) {
             this.room.setArrows(Math.abs(DEFAULTLOOSEARROWS));
             this.room.addItem(Items.ARROW);
         } else {
@@ -62,25 +55,29 @@ public class BabyWumpus extends Character {
     public void move(Directions direction, boolean random) {
         switch (direction) {
             case MOVEFORWARD:
-                if (this.room.getNeighbours()[0] != null && this.room.getNeighbours()[0].getItems().equals(Items.EMPTY) &&
+                if (this.room.getNeighbours()[0] != null &&
+                        this.room.getNeighbours()[0].getItems().equals(Items.EMPTY) &&
                         !this.room.getNeighbours()[0].getPlayer()) {
                     this.changeRoom(this.room.getNeighbours()[0]);
                 }
                 break;
             case MOVERIGHT:
-                if (this.room.getNeighbours()[1] != null && this.room.getNeighbours()[1].getItems().equals(Items.EMPTY) &&
+                if (this.room.getNeighbours()[1] != null &&
+                        this.room.getNeighbours()[1].getItems().equals(Items.EMPTY) &&
                         !this.room.getNeighbours()[1].getPlayer()) {
                     this.changeRoom(this.room.getNeighbours()[1]);
                 }
                 break;
             case MOVEBACKWARDS:
-                if (this.room.getNeighbours()[2] != null && this.room.getNeighbours()[2].getItems().equals(Items.EMPTY) &&
+                if (this.room.getNeighbours()[2] != null &&
+                        this.room.getNeighbours()[2].getItems().equals(Items.EMPTY) &&
                         !this.room.getNeighbours()[2].getPlayer()) {
                     this.changeRoom(this.room.getNeighbours()[2]);
                 }
                 break;
             case MOVELEFT:
-                if (this.room.getNeighbours()[3] != null && this.room.getNeighbours()[3].getItems().equals(Items.EMPTY) &&
+                if (this.room.getNeighbours()[3] != null &&
+                        this.room.getNeighbours()[3].getItems().equals(Items.EMPTY) &&
                         !this.room.getNeighbours()[3].getPlayer()) {
                     this.changeRoom(this.room.getNeighbours()[3]);
                 }
@@ -93,11 +90,11 @@ public class BabyWumpus extends Character {
     /**
      * Removes the baby wumpus from its room, sets the new room, adds the baby wumpus into its new room.
      *
-     * @param r new room.
+     * @param room new room.
      */
-    private void changeRoom(Room r) {
+    private void changeRoom(Room room) {
         this.room.deleteItem(Items.BABYWUMPUS);
-        this.setRoom(r);
+        this.setRoom(room);
         this.room.addItem(Items.BABYWUMPUS);
     }
 

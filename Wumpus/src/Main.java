@@ -1,5 +1,6 @@
 import control.GameController;
 
+
 /**
  * Class that runs the game.
  *
@@ -7,8 +8,8 @@ import control.GameController;
  */
 public class Main {
 
-	public static void main(String[] args) {
-		GameController controller = new GameController();
-	}
+    public static void main(String[] args) {
+        GameController controller = new GameController();
+    }
 
 }

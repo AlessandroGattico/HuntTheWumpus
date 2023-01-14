@@ -27,11 +27,10 @@ public class GameController implements ActionListener, KeyListener {
     private static final int DEFAULTDIMENSION = 10;
     private final HuntTheWumpusView view;
     private final World world;
+    private final PropertyChangeListener playerListener;
+    private final PropertyChangeListener countdownListener;
+    private final PropertyChangeListener gameListener;
     private boolean visibleSolution;
-    private PropertyChangeListener playerListener;
-    private PropertyChangeListener countdownListener;
-    private PropertyChangeListener gameListener;
-    private Random random;
     private boolean updating;
 
     /**
@@ -42,7 +41,6 @@ public class GameController implements ActionListener, KeyListener {
         this.view = new HuntTheWumpusView(this.world);
         this.visibleSolution = false;
         this.updating = false;
-        this.random = new Random();
         this.playerListener = new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -50,6 +48,7 @@ public class GameController implements ActionListener, KeyListener {
                     updating = true;
                     world.updateWorld();
                     view.updateViews((Room) evt.getOldValue());
+
                     if (world.getPlayer().isPlaying()) {
                         view.getControlView().timerReset();
                         view.getControlView().timerStart();
@@ -62,6 +61,7 @@ public class GameController implements ActionListener, KeyListener {
                     world.checkShoot((Room) evt.getNewValue());
                     world.updateWorld();
                     view.updateViews();
+
                     if (world.getPlayer().isPlaying()) {
                         view.getControlView().timerReset();
                         view.getControlView().timerStart();
@@ -78,6 +78,8 @@ public class GameController implements ActionListener, KeyListener {
         };
 
         this.countdownListener = new PropertyChangeListener() {
+            final Random random = new Random();
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("Countdown")) {
@@ -132,6 +134,8 @@ public class GameController implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int choice;
+        Random random = new Random();
+
 
         switch (e.getActionCommand()) {
             case "Play":
@@ -139,6 +143,7 @@ public class GameController implements ActionListener, KeyListener {
                     this.view.getControlView().timerStop();
                     choice = JOptionPane.showConfirmDialog(null, "Want to restart the game?", "Hunt the Wumpus",
                             JOptionPane.YES_NO_OPTION);
+
                     if (choice == JOptionPane.YES_OPTION) {
                         this.world.resetGame();
                         this.view.resetViews();

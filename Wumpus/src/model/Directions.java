@@ -1,5 +1,6 @@
 package model;
 
+
 /**
  * Enumeration that identifies the possible movements and facing directions.
  *
